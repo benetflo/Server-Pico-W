@@ -1,0 +1,3 @@
+*.exe
+ngrok-arm64/
+Thumbs.db
