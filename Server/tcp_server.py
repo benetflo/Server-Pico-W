@@ -14,12 +14,16 @@ while True:
 
 	client_socket, client_address = server_socket.accept() # accept returnar två värden därför kan man skriva så här. client_socket blir ett nytt socketobjekt(för aktuell klient) och client_address (IP + PORT, aktuella klientens identitet)
 								# client_socket är den man använder funktioner på senare i koden ifall man vill göra det.
+
 	print(f"New connection: {client_address}")
 
 	message = "Welcome to my TCP-server written in Python!"
 
 	client_socket.sendall(message.encode()) #måste omvandla string till bytes annars går det inte att skicka
-	
+
+	message_from_client = client_socket.recv(1024)
+	print("Message from client", message_from_client.decode())
+
 	client_socket.close()
 
 
