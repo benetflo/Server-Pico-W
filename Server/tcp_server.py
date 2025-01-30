@@ -17,13 +17,20 @@ while True:
 
 	print(f"New connection: {client_address}")
 
-	message = "Welcome to my TCP-server written in Python!"
-
-	client_socket.sendall(message.encode()) #måste omvandla string till bytes annars går det inte att skicka
-
-	message_from_client = client_socket.recv(1024)
-	print("Message from client", message_from_client.decode())
-
+	#client_socket.sendall(message.encode()) #måste omvandla string till bytes annars går det inte att skicka
+	try:
+		while True:
+			message_from_client = client_socket.recv(1024)
+			if not message_from_client:
+				print(f"Client {client_address} disconnected!")
+			tempC = message_from_client.decode().strip()
+			print("Temperature: ", tempC)
+	except ConnectionResetError:
+		print("Client {client_address} connection was reset")
+		break
+	except Exception as e:
+		print(f"Error with client {client_address}: {e}")
+		break
 	client_socket.close()
 
 
